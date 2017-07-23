@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package $package$;
+
+service $service_class_name$ {
+    rpc $service_method_name;format="camel"$ ($service_method_name;format="Camel"$Request) returns ($service_method_name;format="Camel"$Response) {}
+}
+
+message $service_method_name;format="Camel"$Request {
+
+}
+
+message $service_method_name;format="Camel"$Response {
+
+}
