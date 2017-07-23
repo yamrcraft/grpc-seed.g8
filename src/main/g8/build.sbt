@@ -51,7 +51,7 @@ lazy val commonSettings =
 import com.trueaccord.scalapb.compiler.Version.scalapbVersion
 lazy val pbSettings =
   Seq(
-    PB.protoSources.in(Compile) := Seq(sourceDirectory.in(Compile).value / "proto"),
+    PB.protoSources.in(Compile) := Seq(baseDirectory.in(Compile).value / "proto"),
     PB.targets.in(Compile) := Seq(scalapb.gen() -> sourceManaged.in(Compile).value),
     libraryDependencies ++= Seq(
       "com.trueaccord.scalapb" %% "scalapb-runtime"      % scalapbVersion % "protobuf",
