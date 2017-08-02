@@ -1,20 +1,17 @@
 package $package$.server
 
-import com.typesafe.config.ConfigFactory
+import $package$.Settings
 import io.grpc.{ServerBuilder, ServerServiceDefinition}
 import org.apache.logging.log4j.LogManager
 
-class Server(serviceDefinitions: ServerServiceDefinition*) {
+class Server(settings: Settings, serviceDefinitions: ServerServiceDefinition*) {
 
   implicit val logger = LogManager.getLogger(getClass)
-
-  private val config     = ConfigFactory.load()
-  private val serverPort = config.getInt("$name;format="normalize"$.server.port")
 
   private var server: Option[io.grpc.Server] = None
 
   def start(): Unit = {
-    val serverBuilder = ServerBuilder.forPort(serverPort)
+    val serverBuilder = ServerBuilder.forPort(settings.port)
     serviceDefinitions.foreach(serverBuilder.addService(_))
 
     server = Option(
@@ -22,7 +19,7 @@ class Server(serviceDefinitions: ServerServiceDefinition*) {
         .build
         .start
     )
-    logger.info(s"\${this.getClass.getName} started. Listening on port \$serverPort")
+    logger.info(s"\${this.getClass.getName} started. Listening on port \${settings.port}")
 
     // make sure server is stopped when jvm is shut down
     Runtime.getRuntime.addShutdownHook(new Thread() {

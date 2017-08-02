@@ -12,10 +12,21 @@ lazy val `$name;format="normalize"$` =
         library.log4jCore,
         library.log4jSlf4jImpl,
         library.typesafeConfig,
+        library.ficus,
         library.mockito    % Test,
         library.scalaCheck % Test,
         library.scalaTest  % Test
       )
+    )
+    .settings(
+      // assembly
+      mainClass in assembly := Some("$package$.ServerApp"),
+      assemblyMergeStrategy in assembly := {
+        case PathList(ps@_*) if ps.last endsWith "netty.versions.properties" => MergeStrategy.first
+        case x =>
+          val oldStrategy = (assemblyMergeStrategy in assembly).value
+          oldStrategy(x)
+      }
     )
 
 
@@ -72,6 +83,7 @@ lazy val library =
       val scalaCheck     = "1.13.5"
       val scalaTest      = "3.0.3"
       val typesafeConfig = "1.3.1"
+      val ficus          = "1.4.1"
     }
     val log4jApi       = "org.apache.logging.log4j" % "log4j-api"        % Version.log4j
     val log4jCore      = "org.apache.logging.log4j" % "log4j-core"       % Version.log4j
@@ -80,4 +92,5 @@ lazy val library =
     val scalaCheck     = "org.scalacheck"           %% "scalacheck"      % Version.scalaCheck
     val scalaTest      = "org.scalatest"            %% "scalatest"       % Version.scalaTest
     val typesafeConfig = "com.typesafe"             % "config"           % Version.typesafeConfig
+    val ficus          = "com.iheart"               %% "ficus"           % Version.ficus
   }
