@@ -6,6 +6,7 @@ import $package$.$service_name;format="camel"$.$service_class_name$Grpc
 import com.typesafe.config.ConfigFactory
 
 import scala.concurrent.ExecutionContext
+import scala.io.Source
 
 object ServerApp {
 
