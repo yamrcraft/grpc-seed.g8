@@ -5,7 +5,7 @@ option java_package = "$package$";
 package $proto_package$;
 
 service $service_class_name$ {
-    rpc $service_method_name;format="camel"$ ($service_method_name;format="Camel"$Request) returns ($service_method_name;format="Camel"$Response) {}
+    rpc $service_method_name;format="Camel"$ ($service_method_name;format="Camel"$Request) returns ($service_method_name;format="Camel"$Response) {}
 }
 
 message $service_method_name;format="Camel"$Request {

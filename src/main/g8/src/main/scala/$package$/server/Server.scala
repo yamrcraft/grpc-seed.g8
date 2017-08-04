@@ -11,7 +11,7 @@ class Server(settings: Settings, serviceDefinitions: ServerServiceDefinition*) {
   private var server: Option[io.grpc.Server] = None
 
   def start(): Unit = {
-    val serverBuilder = ServerBuilder.forPort(settings.port)
+    val serverBuilder = ServerBuilder.forPort(settings.server.port)
     serviceDefinitions.foreach(serverBuilder.addService(_))
 
     server = Option(
@@ -19,7 +19,7 @@ class Server(settings: Settings, serviceDefinitions: ServerServiceDefinition*) {
         .build
         .start
     )
-    logger.info(s"\${this.getClass.getName} started. Listening on port \${settings.port}")
+    logger.info(s"\${this.getClass.getName} started. Listening on port \${settings.server.port}")
 
     // make sure server is stopped when jvm is shut down
     Runtime.getRuntime.addShutdownHook(new Thread() {
