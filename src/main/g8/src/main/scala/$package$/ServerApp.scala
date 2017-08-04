@@ -23,7 +23,7 @@ object ServerApp {
     val settings = new Settings(config)
 
     val serverServiceDefinition = $service_class_name$Grpc.bindService(new $service_class_name$(settings), ExecutionContext.global)
-    val server = new Server(serverServiceDefinition)
+    val server = new Server(settings, serverServiceDefinition)
     server.start()
     server.blockUntilShutdown()
   }
